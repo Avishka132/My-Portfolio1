@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avishka Sandaruwan | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            padding: 1.5rem 9%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 238, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-size: 1.6rem; font-weight: 700; }
+        .logo span { color: #00eeff; }
+
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 2.5rem; }
+        nav ul li a {
+            text-decoration: none;
+            color: #cbd5e1;
+            font-weight: 500;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: #00eeff;
+            text-shadow: 0 0 10px #00eeff;
+        }
+
+        /* --- PAGE CONTENT CONTROL --- */
+        .page-section {
+            padding: 120px 9% 100px;
+            display: block;
+        }
+
+        /* --- HERO --- */
+        .hero { display: flex; align-items: center; justify-content: space-between; gap: 4rem; min-height: 100vh; }
+        .hero-content { flex: 1; }
+        .hero-content h1 { font-size: 4rem; margin: 0.5rem 0; color: white; }
+        .hero-content h3 span { color: #00eeff; }
+        .hero-content p { margin: 1.5rem 0; color: #94a3b8; line-height: 1.8; }
+
+        .social-icons a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 45px; height: 45px;
+            border: 2px solid #00eeff;
+            border-radius: 50%;
+            color: #00eeff;
+            margin-right: 1.2rem;
+            transition: 0.4s;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            background: #00eeff;
+            color: #0f172a;
+            box-shadow: 0 0 20px #00eeff;
+            transform: translateY(-5px);
+        }
+
+        .hero-img {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .circular-frame {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: #0f172a;
+            border: 5px solid #00eeff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            filter: drop-shadow(0 0 20px rgba(0, 238, 255, 0.8));
+            transition: 0.5s;
+            cursor: pointer;
+        }
+
+        .circular-frame img {
+            width: 150%;
+            height: 150%;
+            object-fit: cover;
+            object-position: center top;
+            transition: 0.5s;
+        }
+
+        .circular-frame:hover {
+            transform: scale(1.03);
+            filter: drop-shadow(0 0 35px rgba(0, 238, 255, 1));
+        }
+
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; }
+        .section-title span { color: #00eeff; }
+
+        .btn-gradient {
+            background: linear-gradient(90deg, #00eeff, #0077ff);
+            color: #0f172a;
+            padding: 10px 28px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: inline-block;
+            transition: 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-gradient:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 238, 255, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .skill-card {
+            background: #1e293b;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+            text-align: center;
+        }
+        .skill-card:hover { transform: translateY(-10px); border-color: #00eeff; }
+        .skill-card img { width: 100%; height: 200px; object-fit: cover; cursor: pointer; }
+        .skill-info { padding: 1.5rem; }
+        .skill-info h4 { margin-bottom: 10px; color: #00eeff; }
+        .skill-info h5 { color: #fafafa; }
+        .skill-info p { font-size: 0.9rem; color: #cbd5e1; margin-bottom: 1.5rem; }
+        .description-text {
+    max-height: 100px; /* Adjust this to show desired initial height */
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    color: #cbd5e1;
+    margin-bottom: 10px;
+}
+
+.description-text.expanded {
+    max-height: 500px; /* Sufficiently large to show full text */
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: #00eeff;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            max-width: 85%;
+            max-height: 80%;
+            border-radius: 10px;
+        }
+
+        .info-popup-box {
+            background: #1e293b;
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 550px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .info-popup-box h2 { color: #00eeff; margin-bottom: 15px; }
+        .info-popup-box p { color: #cbd5e1; line-height: 1.8; }
+
+        .close-modal {
+            position: absolute;
+            top: 20px; right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .close-modal:hover { color: #00eeff; }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(0, 238, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.3s;
+            position: relative;
+        }
+        .project-card:hover { transform: translateY(-5px); border-color: #00eeff; }
+        .project-img { width: 100%; height: 200px; background-size: cover; background-position: center; position: relative; cursor: pointer; }
+        .link-tag {
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 5px 12px; border-radius: 5px;
+            font-size: 0.75rem; border: 1px solid #00eeff; color: #00eeff;
+        }
+        .project-info { padding: 1.5rem; }
+        .project-info .status { color: #00eeff; font-size: 0.8rem; display: block; margin-bottom: 8px; }
+
+        footer {
+            padding: 20px 9%;
+            background: rgba(15, 23, 42, 0.95);
+            display: flex; justify-content: space-around;
+            border-top: 1px solid rgba(0, 238, 255, 0.1);
+            font-size: 0.85rem;
+        }
+        footer span i { color: #00eeff; margin-right: 8px; }
+
+
+
+/* Layout for the container */
+.tools-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+.tool-category h3 { 
+    color: #00eeff; 
+    margin-bottom: 40px; /* මෙතැන අගය වැඩි කිරීමෙන් පරතරය වැඩි වේ (උදා: 30px, 40px, 50px) */
+    border-bottom: 2px solid #00eeff; 
+    display: inline-block; 
+}
+/* Category styling */
+.tool-category {
+    background: #1e293b;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 238, 255, 0.1);
+}
+
+.tool-list {
+    list-style: none;
+    padding: 0;
+}
+
+
+/* Hover effect */
+.tool-list li:hover {
+    color: #ffffff;
+    transform: translateX(10px);
+}
+        .tool-list:hover { transform: translateY(-10px); border-color: #00eeff; }
+        .tool-list img { width: 15%; height: 50px; object-fit: cover; cursor: pointer; }
+        .tool-list { padding: 0 }
+        .tool-list h4 { margin-bottom: 10px; color: #00eeff; }
+        .tool-list h5 { color: #fafafa; }
+        .tool-list p { font-size: 0.9rem; color: #cbd5e1; margin-bottom: 2.5rem; }
+        .description-text {
+    max-height: 50px; /* Adjust this to show desired initial height */
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    color: #cbd5e1;
+    margin-bottom: 10px;
+}
+.tool-list li {
+    display: flex;
+    align-items: center; /* This keeps them vertically centered */
+    margin-bottom: 15px;
+    color: #cbd5e1;
+    font-size: 1.2rem;
+    transition: 0.3s;
+    /* Adding a gap here will increase space between icon and text */
+    gap: 30px; 
+}
+
+.tool-list li i {
+    color: #00eeff;
+    font-size: 2.2rem; /* You can also use margin-right instead of gap if you prefer */
+    margin-right: 30px; 
+    width: 50px;
+    text-align: center;
+}
+        @media (max-width: 768px) {
+            .hero { flex-direction: column !important; text-align: center; padding-top: 150px; }
+            .hero-content h1 { font-size: 2.5rem; }
+            footer { flex-direction: column; gap: 10px; text-align: center; }
+        }
+
+        .learn-more-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid #00eeff;
+    color: #00eeff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.learn-more-btn:hover {
+    background: #00eeff;
+    color: #0f172a;
+    box-shadow: 0 0 10px #00eeff;
+}
+.project-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 5px;
+    height: 200px;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.gallery-img:hover {
+    filter: brightness(1.2);
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 40px;
+    background: #0f172a;
+    border-radius: 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.contact-info, .contact-form {
+    flex: 1;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input, .contact-form textarea {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #1e293b;
+    color: white;
+}
+
+.submit-btn {
+    padding: 12px;
+    background: #273bac;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.submit-btn:hover {
+    background: #00eeff;
+}
+
+.info-item {
+    margin: 20px 0;
+    color: #cbd5e1;
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+    }
+}
+/* Style for the new follow box */
+.follow-box {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #334155;
+}
+
+.follow-box h4 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+    color: #00eeff;
+    margin-right: 15px;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    color: white;
+    transform: translateY(-5px);
+}
+    </style>      
+</head>
+<body>
+
+    <div id="mainModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImg">
+        <div id="modalInfo" class="info-popup-box" style="display: none;">
+            <h2 id="infoTitle"></h2>
+            <p id="infoDesc"></p>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">Avishka Portfolio<span>.</span></div>
+            <ul id="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="page-section hero">
+        <div class="hero-content">
+            <h3>Hello, It's Me</h3>
+            <h1>Avishka Sandaruwan</h1>
+            <h3>And I'm a <span>Computer Networks Student</span></h3>
+            <p>Specializing in network architecture and security at NSBM Green University. I build robust, scalable, and secure infrastructures.</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/share/1BFrUGRNZA/?mibextid=wwXIfr"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/avishka._sandaruwan?igsh=MXR2Ym5iOHR5dXljcw%3D%3D&utm_source=qr"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/avishka-sandaruwan-358b952b3/"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:avishkasandaruwan399@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/Avishka132" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+            <br>
+            <a href="Avishka sandaruwan CV.pdf" class="btn-gradient">Download CV</a>
+        </div>
+        <div class="hero-img">
+            <div class="circular-frame" onclick="openModal('11.png')">
+                <img src="11.png" alt="Avishka">
+            </div>
+        </div>
+    </section>
+
+<section id="about" class="page-section">
+    <h2 class="section-title">About <span>Me</span></h2>
+    
+    <div style="text-align: center; max-width: 800px; margin: 0 auto; color: #cbd5e1;">
+        <p style="margin-bottom: 25px; line-height: 1.8;">
+            I am Avishka Sandaruwan, a third-year Bachelor of Science in Computer Networks (Honours) undergraduate at NSBM Green University. I am passionate about computer networking, cybersecurity, and IT infrastructure, with a strong interest in emerging technologies and digital communication systems.
+        </p>
+
+        <p style="margin-bottom: 25px; line-height: 1.8;">
+            Through academic and group projects, I have gained practical experience in network design, VoIP system deployment, firewall configuration, and web application development. I have worked with technologies such as Cisco networking, Asterisk VoIP, Java, MySQL, and network security tools, helping me build a solid technical foundation.
+        </p>
+
+        <p style="line-height: 1.8;">
+            I am a motivated and detail-oriented individual with strong problem-solving, analytical, and teamwork skills. My goal is to develop my expertise in networking and cybersecurity while contributing to innovative and secure technology solutions as a future Network Engineer or Cybersecurity Professional.
+        </p>
+    </div>
+</section>
+
+        
+
+    <section id="skills" class="page-section">
+        <h2 class="section-title">My <span>Certificates</span></h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <img src="Python.PNG" onclick="openModal(this.src)">
+                <div class="skill-info">
+                    <h4>Python Essentials 1</h4>
+                    <h5>I have successfully completed Python Essentials 1 through Cisco Networking Academy and OpenEDG Python Institute.This achievement marks an important step in my journey toward becoming a skilled programmer. Excited to continue ...</h5>
+                    <button class="toggle-btn" onclick="showInfo('','I have successfully completed Python Essentials 1 through Cisco Networking Academy and OpenEDG Python Institute.This achievement marks an important step in my journey toward becoming a skilled programmer. Excited to continue learning and growing in software development.Thank you for Cisco Networking Academy badge: https://lnkd.in/ghHspNcN')">Show More</button>
+                
+            </div>
+            </div>
+            <div class="skill-card">
+                <img src="P1.jpg" onclick="openModal(this.src)">
+                <div class="skill-info">
+                    <h4>Python For Begeiners</h4>
+                    <h5>I have successfully completed the course offered by the Open Learning Platform of University of Moratuwa. conducted by Department of Computer Science & Engineering .Join me in unlocking this opportunity, explore course details now! ( <a href="https://open.uom.lk/"><i class="fa-link"></i></a> ) verify </h5>
+                </div>
+            </div>
+            <div class="skill-card">
+                <img src="P2.jpg" onclick="openModal(this.src)">
+                <div class="skill-info">
+                    <h4>Python Progrmming</h4>
+                    <h5>I successfully completed the Python Programming course conducted by the University of Moratuwa through the Centre for Open & Distance Learning (CODL).This program enhanced my knowledge in Python fundamentals, Object-Oriented ...</h5>
+                    <button class="toggle-btn" onclick="showInfo('','I successfully completed the Python Programming course conducted by the University of Moratuwa through the Centre for Open & Distance Learning (CODL).This program enhanced my knowledge in Python fundamentals, Object-Oriented Programming (OOP), and problem-solving techniques. It strengthened my logical thinking and programming skills, enabling me to develop efficient and structured solutions.Looking forward to applying these skills in real-world projects and continuous learning.')">Show More</button>
+                </div>
+            </div>
+            <div class="skill-card">
+                <img src="W1.jpg" onclick="openModal(this.src)">
+                <div class="skill-info">
+                    <h4>Web Desing For Beginners</h4>
+                    <h5>I have successfully completed the  course offered by the Open Learning Platform of University of Moratuwa. conducted by Department of Information Technology .Join me in unlocking this opportunity, explore course details ...</h5>
+                    <button class="toggle-btn" onclick="showInfo('','I have successfully completed the  course offered by the Open Learning Platform of University of Moratuwa. conducted by Department of Information Technology .Join me in unlocking this opportunity, explore course details now!https://open.uom.lk/ verify')">Show More</button>
+                </div>
+            </div>
+            <div class="skill-card">
+                <img src="N1.jpg" onclick="openModal(this.src)">
+                <div class="skill-info">
+                    <h4>Networking Basic</h4>
+                    <h5>I’m pleased to share that I have successfully completed the Networking Basics course. This learning experience has strengthened my interest in IT and provided valuable knowledge for my future career development.</h5>
+                </div>
+            </div>
+            <div class="skill-card">
+                <img src="F1.jpg" onclick="openModal(this.src)">
+                <div class="skill-info">
+                    <h4>UI/UX Design-Figma</h4>
+                    <h5>'Prototyping user flows and high-fidelity designs in Figma.The FigMate-UI/UX Figma Workshop 2025, hosted by the Association of Computer and Data Science at NSBM Green University, was a lot of fun. This event was a fantastic opportunity ...</h5>
+                    <button class="toggle-btn" onclick="showInfo('','Prototyping user flows and high-fidelity designs in Figma.The FigMate-UI/UX Figma Workshop 2025, hosted by the Association of Computer and Data Science at NSBM Green University, was a lot of fun. This event was a fantastic opportunity to gain practical experience with Figma and learn about UI/UX design ideas.Big thanks to Ravindu Lankathilaka and Mr. Muditha Batagoda for sharing their expertise and demonstrating best practices in interface design. Their advice on design customisation, reusable components, and wireframing was really beneficial! I cant wait to put these new abilities to work in my next projects and advance in the UI/UX design industry.')">Show More</button>
+                </div>
+                   
+                </div>
+                
+            <div class="skill-card">
+                <img src="GD.jpg" onclick="openModal(this.src)">
+                <div class="skill-info">
+                    <h4>Diploma in Graphic Design – Oracle Academy (Pvt) Ltd</h4>
+                    <h5>Successfully completed a Diploma in Graphic Design through SLT Mobitel e-Siphala. Developed skills in visual communication, branding, digital design principles, and creative content development using industry-standard design tools and techniques.</h5>
+                </div>
+            </div>
+            
+            <div class="skill-card">
+                <img src="MS.jpg" onclick="openModal(this.src)">
+                <div class="skill-info">
+                    <h4>Diploma in Microsoft Office – Oracle Academy (Pvt) Ltd</h4>
+                    <h5>Successfully completed a Diploma in Microsoft Office through SLT Mobitel E-Siphala. Gained practical skills in Microsoft Word, Excel, and PowerPoint, with experience in document creation, data management, spreadsheet analysis, and professional presentations.</h5>
+                </div>
+            </div>
+        
+    </section>
+
+<section id="tools" class="page-section tools-section">
+    <h2 class="section-title">Languages & <span>Tools</span></h2>
+    <div class="tools-container">
+        <div class="tool-category">
+            <h3>Developing</h3>
+            <ul class="tool-list">
+                
+                <li><img src="Java-Light.svg" onclick="openModal(this.src)"> Java</li>
+                <li><img src="HTML.svg" onclick="openModal(this.src)"> HTML</li>
+                <li><img src="CSS.svg" onclick="openModal(this.src)"> CSS</li>
+                <li><img src="JavaScript.svg" onclick="openModal(this.src)"> JavaScript</li>
+                <li><img src="MySQL-Dark.svg" onclick="openModal(this.src)"> MySQL</li>
+                <li><img src="Figma-Dark.svg" onclick="openModal(this.src)"> Figma</li>
+                <li><img src="Github-Light.svg" onclick="openModal(this.src)"> GitHub</li>
+                
+            </ul>
+        </div>
+        <div class="tool-category">
+            <h3>Developing</h3>
+            <ul class="tool-list">
+                <li><img src="Arduino.svg" onclick="openModal(this.src)"> Arduino</li>
+                <li><img src="VSCode-Dark.svg" onclick="openModal(this.src)"> VSCode</li>
+                <li><img src="Python-Dark.svg" onclick="openModal(this.src)"> Python</li>
+                <li><img src="Linux-Dark.svg" onclick="openModal(this.src)"> Linux</li>
+                <li><img src="C.svg" onclick="openModal(this.src)"> C Programming</li>
+                <li><img src="Photoshop.svg" onclick="openModal(this.src)"> Photoshop</li>
+                <li><img src="Illustrator.svg" onclick="openModal(this.src)"> Illustrator</li>
+            </ul>
+        </div>
+        
+        <div class="tool-category">
+            <h3>Networking & Security</h3>
+            <ul class="tool-list">
+                <li><i class="fas fa-network-wired"></i> Cisco Packet Tracer</li>
+                <li><i class="fas fa-shield-alt"></i> Cisco ASA Firewall</li>
+                <li><i class="fas fa-project-diagram"></i> Routing & Switching</li>
+                <li><i class="fas fa-wifi"></i> TCP/IP & VoIP</li>
+                <li><i class="fas fa-tools"></i> Network Troubleshooting</li>
+                <li><i class="fas fa-server"></i> Asterisk / FreeBSD / VMware</li>
+                <li><i class="fas fa-instagram"></i> WireShark</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+<section id="projects" class="page-section">
+    <h2 class="section-title">My <span>Creative Projects</span></h2>
+    <!-- Combined into one grid -->
+    <div class="projects-grid">
+        
+        <!-- Project 1 -->
+       <div class="project-card">
+            <div class="project-img" style="background-image: url('configuring-a-network-switch.webp');" onclick="openModal(this.style.backgroundImage.slice(5,-2))">
+                <a href="https://drive.google.com/drive/folders/1Xeq0x8x9u20L0NQmViA_UJLXAPYcCp6u?usp=drive_link" target="_blank" class="link-tag">
+            <i class="fas fa-link"></i> Live Link
+        </a>
+            </div>
+                <a href="Network Security Cource Work [Group R].pdf" target="_blank" class="learn-more-btn">
+        <i class="Network Security Cource Work [Group R].pdf"></i> Report 
+    </a>
+            <div class="project-info">
+                <h4>Network Security: Cisco ASA Firewall Configuration</h4>
+                <span class="status">Completed</span>
+                <p>Tech: Cisco ASA, Cisco Packet Tracer, ACLs, VLANs, ICMP.Show More</p>
+                <button class="learn-more-btn" onclick="showInfo('Cisco ASA Firewall Configuration', 'This project involved designing and configuring a secure network infrastructure using a Cisco ASA firewall within Cisco Packet Tracer. By establishing internal and external VLAN interfaces and implementing strict Access Control Lists (ACLs), I successfully enforced security policies that permitted only HTTP traffic while blocking unauthorized protocols.')"> Learn More </button>
+            </div>
+        </div>
+                <!-- Project 2 -->
+
+        <div class="project-card">
+            <div class="project-img" style="background-image: url('Slide1.JPG');" onclick="openModal(this.style.backgroundImage.slice(5,-2))">
+                <a href="https://www.figma.com/design/o6DSYZ4C6jFlFJZtZtFg3j/Relax-On?node-id=0-1&t=DOcBBLxhqBGtEqwi-1" target="_blank" class="link-tag">
+            <i class="fas fa-link"></i> Live Link
+        </a>
+            </div>
+                <a href="Relax ON.pdf" target="_blank" class="learn-more-btn">
+        <i class="Relax ON.pdf"></i> Report 
+    </a>
+            <div class="project-info">
+                <h4>RelaxOn</h4>
+                <span class="status">Completed</span>
+                <p>Tech: Figma | UI/UX Design | Human-Computer Interaction (HCI) ... <button class="toggle-btn" onclick="showInfo('Tech:','Figma | UI/UX Design | Human-Computer Interaction (HCI) | Inclusive Design | Accessibility Design | User Research.')">Show More</button></p>
+                
+                
+                        <button class="learn-more-btn" onclick="showInfo('RelaxOn', 'Designed an inclusive and user-friendly mindfulness application focused on meditation, relaxation, and mental well-being. The project applied UI/UX and accessibility principles to support users with visual, motor, hearing, and cognitive impairments through intuitive navigation, readable interfaces, and accessible design features. Developed high-fidelity prototypes using Figma based on user research and inclusive design practices.')"> Learn More </button>
+            </div>
+        </div>
+
+<!-- Project 3 -->
+
+<div class="project-card">
+    <video class="project-img" controls poster="V1.png">
+        <source src="Coursework Group L.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+
+    </video>
+    <a href="VoIP Coursework group L.pdf" target="_blank" class="learn-more-btn">
+        <i class="fas fa-file-pdf"></i> Report
+    </a>
+    
+    <div class="project-info">
+        <h4>Voice and Video over IP (VoIP)</h4>
+        <span class="status">Completed</span>
+        <p>Tech: Asterisk 18 | FreeBSD | VMware Workstation | SIP | Zoiper | Linphone | PF Firewall | Fail2ban | VoIP Security</p>
+        
+        <button class="learn-more-btn" onclick="showInfo('Voice and Video over IP (VoIP) Implementation using Asterisk on FreeBSD', 'Developed a secure VoIP communication system using Asterisk 18 on FreeBSD. Configured SIP clients, custom dial plans, firewall security, and call routing while implementing network security best practices and troubleshooting real-world VoIP deployment challenges.')"> Learn More </button>
+    </div>
+</div>
+
+<!-- Project 4 -->
+
+<div class="project-card">
+    <video class="project-img" controls poster="Wareh.png">
+        <source src="Warehouse.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+
+    </video>
+    <a href="Group L.pdf" target="_blank" class="learn-more-btn">
+        <i class="fas fa-file-pdf"></i> Report
+    </a>
+    <div class="project-info">
+        <h4>Warehouse Management System</h4>
+        <span class="status">Completed</span>
+        <p>Tech: Java EE | JSP | Servlets | JDBC | MySQL | MVC | GitHub</p>
+        
+        <button class="learn-more-btn" onclick="showInfo('Warehouse Management System', 'aDeveloped a web-based Warehouse Management System using Java EE, JSP, Servlets, JDBC, and MySQL following the MVC architecture. The system streamlines inventory tracking, stock management, user authentication, and order processing, helping improve warehouse efficiency and reduce manual errors.')"> Learn More </button>
+    </div>
+</div>
+
+<!-- Project 4 -->
+
+<div class="project-card">
+    <video class="project-img" controls poster="PCJT.jpeg">
+        <source src="PCJT.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <div class="project-info">
+        <h4>My Robot Pet</h4>
+        <span class="status">Completed</span>
+        <p>Tech: Arduino, Software Engineering</p>
+        <button class="learn-more-btn" onclick="showInfo('My Robot Pet', 'Name: Avishka Sandaruwan | NIC: 200211002860 | Version: 1.0 | Subject: Java Institute for Advanced Technology Selection Examination Project for the PCJT Software Engineering Degree. The Java Institute is an ISO 9001:2015 certified institute. This project demonstrates the use of social media and online platforms to share technical concepts and enhance knowledge for the young generation.')">
+            Learn More
+        </button>      
+    </div>
+</div>
+</section>
+    
+    
+<section id="contact" class="page-section"></N>
+
+    <h2 class="section-title">Contact <span>Me</span></h2>
+    
+    <div class="contact-container">
+        <div class="contact-info">
+            <h3>Contact Information</h3>
+            <p>Have a project in mind? Feel free to reach out through any of these channels.</p>
+            
+            <div class="info-item">
+                <span>📧 Email: avishkasandaruwan399@gmail.com</span>
+            </div>
+            <div class="info-item">
+                <span>📞 Phone: (+94) 71 895 4623</span>
+            </div>
+            <div class="info-item">
+                <span>📍 Location: Homagama, Colombo, Sri Lanka</span>
+            </div>
+
+            <div class="follow-box">
+                <h4>Follow Me</h4>
+                <div class="social-links">
+                    <a href="https://github.com/Avishka132" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/avishka-sandaruwan-358b952b3/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+    <footer>
+        <span><i class="fas fa-phone"></i>(+94) 71 895 4623</span>
+        <span><i class="fas fa-envelope"></i> avishkasandaruwan399@gmail.com</span>
+        <span><a href="https://www.linkedin.com/in/avishka-sandaruwan-358b952b3/" target="_blank"><i class="fab fa-linkedin"></i></a></i> LinkedIn Profile </span>
+    </footer>
+
+    <script>
+        // MODAL LOGIC
+        function openModal(imgSrc) {
+            const modal = document.getElementById("mainModal");
+            const modalImg = document.getElementById("modalImg");
+            document.getElementById("modalInfo").style.display = "none";
+            modalImg.style.display = "block";
+            modalImg.src = imgSrc;
+            modal.style.display = "flex";
+        }
+
+        function showInfo(title, desc) {
+            const modal = document.getElementById("mainModal");
+            document.getElementById("modalImg").style.display = "none";
+            document.getElementById("modalInfo").style.display = "block";
+            document.getElementById("infoTitle").innerText = title;
+            document.getElementById("infoDesc").innerText = desc;
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("mainModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("mainModal");
+            if (event.target == modal) { closeModal(); }
+        }
+
+        // SCROLL ACTIVE LINK
+        const sections = document.querySelectorAll('.page-section');
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        window.onscroll = () => {
+            sections.forEach(sec => {
+                let top = window.scrollY;
+                let offset = sec.offsetTop - 150;
+                let height = sec.offsetHeight;
+                let id = sec.getAttribute('id');
+
+                if(top >= offset && top < offset + height) {
+                    navLinks.forEach(links => {
+                        links.classList.remove('active');
+                        document.querySelector('nav ul li a[href*=' + id + ']').classList.add('active');
+                    });
+                }
+            });
+        };
+    </script>
+</body>
+</html>
